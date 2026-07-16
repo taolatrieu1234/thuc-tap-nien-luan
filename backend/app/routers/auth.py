@@ -1,8 +1,8 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends # Bổ sung Depends
 from app.database import supabase
-from app.schemas.auth import LoginRequest, TokenSchema
+from app.schemas.auth import LoginRequest, TokenSchema, UserResponseSchema # Import thêm UserResponseSchema
 from app.utils import verify_password, create_access_token
-
+from app.dependencies import get_current_user # Import dependency xác thực vừa tạo
 router = APIRouter()
 
 @router.post("/login", response_model=TokenSchema)
@@ -66,3 +66,14 @@ def login(payload: LoginRequest):
         "access_token": access_token,
         "token_type": "bearer"
     }
+
+
+
+# API /me YÊU CẦU XÁC THỰC TOKEN (8)
+@router.get("/me", response_model=UserResponseSchema)
+def get_me(current_user: dict = Depends(get_current_user)):
+    """
+    API lấy thông tin cá nhân của tài khoản hiện hành đang đăng nhập (Yêu cầu JWT Token trong Header)
+    """
+    # current_user đã được giải mã và kiểm duyệt kỹ qua Dependency get_current_user
+    return current_user
