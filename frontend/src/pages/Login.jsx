@@ -25,7 +25,7 @@ const Login = () => {
       console.log("%c Token đã lưu trữ:", "color: #00ff00", data.access_token);
 
       //3. Tạm thời cho tải lại trang để thấy trạng thái (Ngày 10 sẽ xử lý Route chuyển trang tự động)
-      window.location.reload();
+      window.location.href = "/";//(10)
     } catch (err) {
       // Hiển thị thông báo lỗi chi tiết do Backend trả về (Ví dụ: Sai mật khẩu)
       setError(err.message || "Tên đăng nhập hoặc mật khẩu không chính xác.");

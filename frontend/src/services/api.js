@@ -46,3 +46,29 @@ export const loginUser = async (username, password) => {
 
 
 
+
+/**
+ Hàm lấy thông tin người dùng hiện hành từ JWT Token (10)
+ */
+export const fetchUserProfile = async (token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/auth/me`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Token đã hết hạn hoặc không hợp lệ.");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi fetchUserProfile:", error);
+    throw error;
+  }
+};
+
+
+
