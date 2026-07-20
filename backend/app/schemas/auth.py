@@ -35,4 +35,11 @@ class UserResponseSchema(BaseModel):
         from_attributes = True
 
 
+# Schema xác thực đầu vào #(11)
 
+class ChangePasswordRequest(BaseModel):
+    """
+    Schema kiểm tra dữ liệu đầu vào khi người dùng yêu cầu đổi mật khẩu
+    """
+    old_password: str = Field(..., description="Mật khẩu hiện tại của tài khoản")
+    new_password: str = Field(..., min_length=6, description="Mật khẩu mới phải đạt tối thiểu 6 ký tự")
