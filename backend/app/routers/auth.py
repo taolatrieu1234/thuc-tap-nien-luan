@@ -5,6 +5,7 @@ from app.utils import verify_password, create_access_token, hash_password
 from app.dependencies import get_current_user 
 router = APIRouter()
 
+#API đăng nhập 
 @router.post("/login", response_model=TokenSchema)
 def login(payload: LoginRequest):
     """

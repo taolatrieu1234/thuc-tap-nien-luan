@@ -72,3 +72,34 @@ export const fetchUserProfile = async (token) => {
 
 
 
+/**
+ Hàm gọi API Đổi mật khẩu cá nhân
+ Gửi mật khẩu cũ và mật khẩu mới kèm Token JWT ở Header
+ */
+export const changePassword = async (oldPassword, newPassword, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/auth/change-password`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        old_password: oldPassword,
+        new_password: newPassword,
+      }),
+    });
+
+    const data = await response.json();
+
+    //nếu lỗi
+    if (!response.ok) {
+      throw new Error(data.detail || "Đổi mật khẩu thất bại!");
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi thực hiện changePassword:", error);
+    throw error;
+  }
+};

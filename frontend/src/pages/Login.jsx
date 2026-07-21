@@ -24,10 +24,10 @@ const Login = () => {
       alert("Đăng nhập thành công!");
       console.log("%c Token đã lưu trữ:", "color: #00ff00", data.access_token);
 
-      //3. Tạm thời cho tải lại trang để thấy trạng thái (Ngày 10 sẽ xử lý Route chuyển trang tự động)
-      window.location.href = "/";//(10)
+      //3. Tạm thời cho tải lại trang để thấy trạng thái(10)
+      window.location.href = "/";
     } catch (err) {
-      // Hiển thị thông báo lỗi chi tiết do Backend trả về (Ví dụ: Sai mật khẩu)
+      // Hiển thị thông báo lỗi chi tiết do Backend trả về 
       setError(err.message || "Tên đăng nhập hoặc mật khẩu không chính xác.");
     } finally {
       setLoading(false);
