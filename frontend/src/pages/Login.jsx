@@ -24,8 +24,17 @@ const Login = () => {
       alert("Đăng nhập thành công!");
       console.log("%c Token đã lưu trữ:", "color: #00ff00", data.access_token);
 
-      //3. Tạm thời cho tải lại trang để thấy trạng thái(10)
-      window.location.href = "/";
+      //3. Chuyển hướng dựa theo role (lấy từ payload JWT) (10) (14)
+      const payloadBase64 = data.access_token.split('.')[1];
+      const decodedPayload = JSON.parse(atob(payloadBase64));
+
+      if (decodedPayload.role === 'admin') {
+        window.location.href = "/admin";
+      } else if (decodedPayload.role === 'staff') {
+        window.location.href = "/staff";
+      } else {
+        window.location.href = "/";
+      }
     } catch (err) {
       // Hiển thị thông báo lỗi chi tiết do Backend trả về 
       setError(err.message || "Tên đăng nhập hoặc mật khẩu không chính xác.");

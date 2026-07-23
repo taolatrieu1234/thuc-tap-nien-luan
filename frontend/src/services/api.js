@@ -73,7 +73,7 @@ export const fetchUserProfile = async (token) => {
 
 
 /**
- Hàm gọi API Đổi mật khẩu cá nhân
+ Hàm gọi API Đổi mật khẩu cá nhân(11)
  Gửi mật khẩu cũ và mật khẩu mới kèm Token JWT ở Header
  */
 export const changePassword = async (oldPassword, newPassword, token) => {
@@ -100,6 +100,22 @@ export const changePassword = async (oldPassword, newPassword, token) => {
     return data;
   } catch (error) {
     console.error("Lỗi khi thực hiện changePassword:", error);
+    throw error;
+  }
+};
+
+/**
+ Hàm gọi API Lấy danh sách danh mục (14)
+ */
+export const fetchCategories = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/categories/`);
+    if (!response.ok) {
+      throw new Error("Lỗi khi tải danh sách danh mục.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi fetchCategories:", error);
     throw error;
   }
 };

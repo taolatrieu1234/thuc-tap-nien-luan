@@ -1,6 +1,6 @@
 //(10)
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -18,6 +18,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     }
 
     // Nếu vai trò (Role) hiện tại không nằm trong danh sách cho phép -> Trả về trang chặn
+
     if (allowedRoles && !allowedRoles.includes(user.role)) {
         return (
             <div style={{ textAlign: "center", marginTop: "50px", color: "red" }}>
@@ -30,7 +31,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     }
 
     // Nếu hợp lệ -> Cho phép đi tiếp vào giao diện mong muốn
-    return children;
+    return children ? children : <Outlet />;
 };
 
 export default ProtectedRoute;

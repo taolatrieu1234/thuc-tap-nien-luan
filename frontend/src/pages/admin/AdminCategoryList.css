@@ -1,0 +1,132 @@
+.category-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.category-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 24px;
+}
+
+.btn-add {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-add:hover {
+  background-color: #218838;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.category-table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.category-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle;
+}
+
+.category-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.fw-bold {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.text-muted {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-edit {
+  background-color: #e3f2fd;
+  color: #0d6efd;
+}
+
+.btn-edit:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #f8d7da;
+  color: #dc3545;
+}
+
+.btn-delete:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px !important;
+  color: #6c757d;
+}
