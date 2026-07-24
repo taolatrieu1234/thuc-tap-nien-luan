@@ -119,3 +119,74 @@ export const fetchCategories = async () => {
     throw error;
   }
 };
+
+/**
+ * Hàm tạo mới danh mục (Admin) (15)
+ */
+export const createCategory = async (name, description, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/categories/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ name, description })
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Không thể tạo danh mục.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi createCategory:", error);
+    throw error;
+  }
+};
+
+/**
+ * Hàm cập nhật danh mục (Admin) (15)
+ */
+export const updateCategory = async (id, name, description, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/categories/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ name, description })
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Không thể cập nhật danh mục.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi updateCategory:", error);
+    throw error;
+  }
+};
+
+/**
+ * Hàm xóa danh mục (Admin) (15)
+ */
+export const deleteCategory = async (id, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/categories/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Không thể xóa danh mục.");
+    }
+    // Delete trả về 204 No Content nên không cần parse json
+    return true; 
+  } catch (error) {
+    console.error("Lỗi deleteCategory:", error);
+    throw error;
+  }
+};
