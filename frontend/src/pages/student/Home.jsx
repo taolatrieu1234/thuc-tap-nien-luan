@@ -12,7 +12,7 @@ const Home = () => {
       <p>Lớp sinh hoạt: {user?.class_name} | Quyền hệ thống: {user?.role}</p>
       <div style={{ marginTop: "20px" }}>
         <button style={{ padding: "10px 20px", marginRight: "10px" }} onClick={() => navigate('/profile')}>Trang cá nhân</button>
-        <button style={{ padding: "10px 20px", marginRight: "10px" }} onClick={() => alert("Chức năng gửi phản ánh đang phát triển ở Tuần 4!")}>Gửi phản ánh</button>
+        <button style={{ padding: "10px 20px", marginRight: "10px", backgroundColor: "#4a90e2", color: "white", border: "none", cursor: "pointer" }} onClick={() => navigate('/submit-feedback')}>Gửi phản ánh</button>
         <button style={{ padding: "10px 20px", backgroundColor: "#dc3545", color: "#fff", border: "none", cursor: "pointer" }} onClick={logout}>Đăng xuất</button>
       </div>
     </div>

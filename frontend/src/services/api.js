@@ -184,9 +184,44 @@ export const deleteCategory = async (id, token) => {
       throw new Error(errorData.detail || "Không thể xóa danh mục.");
     }
     // Delete trả về 204 No Content nên không cần parse json
-    return true; 
+    return true;
   } catch (error) {
     console.error("Lỗi deleteCategory:", error);
+    throw error;
+  }
+};
+
+/**
+ * Hàm gửi phản ánh mới (Sinh viên) (17)
+ */
+export const createFeedback = async (title, content, category_id, is_anonymous, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/feedbacks/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        title,
+        content,
+        category_id: parseInt(category_id),
+        is_anonymous
+      })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      // Bắt lỗi validation trả về từ FastAPI
+      if (errorData.detail && Array.isArray(errorData.detail)) {
+        throw new Error(errorData.detail[0].msg || "Dữ liệu không hợp lệ.");
+      }
+      throw new Error(errorData.detail || "Không thể gửi phản ánh.");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi createFeedback:", error);
     throw error;
   }
 };
