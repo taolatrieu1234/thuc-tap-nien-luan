@@ -41,11 +41,27 @@
 }
 
 .user-info-banner {
-  background-color: #f8f9fa;
-  border-left: 4px solid #4a90e2;
   padding: 15px;
   border-radius: 4px;
   margin-bottom: 25px;
+  transition: all 0.3s ease;
+}
+
+.public-mode {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  color: #856404;
+}
+
+.anonymous-mode {
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+  color: #155724;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
 }
 
 .user-info-banner p {
@@ -146,4 +162,29 @@
   padding: 50px;
   font-size: 1.2rem;
   color: #666;
+}
+
+.checkbox-group {
+  margin-top: 10px;
+  margin-bottom: 25px !important;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px dashed #ced4da;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal !important;
+  color: #495057 !important;
+  margin-bottom: 0 !important;
+}
+
+.checkbox-container input {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }
