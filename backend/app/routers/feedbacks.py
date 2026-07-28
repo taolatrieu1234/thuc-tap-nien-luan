@@ -1,6 +1,7 @@
 
 #(16)
 from fastapi import APIRouter, Depends, HTTPException, status
+from typing import List
 from app.database import supabase
 from app.schemas.feedback import FeedbackCreate, FeedbackResponse
 from app.dependencies import require_role
@@ -32,5 +33,19 @@ def create_feedback(feedback: FeedbackCreate, current_user: dict = Depends(requi
         return response.data[0]
     except HTTPException as http_exc:
         raise http_exc
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+#(19)
+@router.get("/my", response_model=List[FeedbackResponse])
+def get_my_feedbacks(current_user: dict = Depends(require_role(["student"]))):
+    """Sinh viên lấy danh sách phản ánh cá nhân"""
+    try:
+        response = supabase.table("feedbacks")\
+            .select("*")\
+            .eq("student_id", current_user["id"])\
+            .order("created_at", desc=True)\
+            .execute()
+        return response.data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
