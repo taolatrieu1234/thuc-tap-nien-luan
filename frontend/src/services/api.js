@@ -225,3 +225,27 @@ export const createFeedback = async (title, content, category_id, is_anonymous, 
     throw error;
   }
 };
+
+/**
+ * Hàm lấy lịch sử phản ánh của sinh viên (19, 20)
+ */
+export const fetchMyFeedbacks = async (token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/feedbacks/my`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Không thể tải lịch sử phản ánh.");
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi fetchMyFeedbacks:", error);
+    throw error;
+  }
+};

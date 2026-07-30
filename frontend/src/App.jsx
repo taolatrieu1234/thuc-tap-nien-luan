@@ -7,6 +7,7 @@ import Profile from "./pages/Profile"; //(12)
 
 import StudentHome from "./pages/student/Home";
 import SubmitFeedback from "./pages/student/SubmitFeedback"; //(17)
+import TrackFeedback from "./pages/student/TrackFeedback"; //(20)
 import StaffDashboard from "./pages/staff/StaffDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCategoryList from "./pages/admin/AdminCategoryList"; //(14)
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute allowedRoles={["student"]} />}>
             <Route index element={<StudentHome />} />
             <Route path="submit-feedback" element={<SubmitFeedback />} />
+            <Route path="track-feedback" element={<TrackFeedback />} />
           </Route>
 
           {/* Nhóm Router dành cho Cán bộ (Route /staff) */}
