@@ -13,6 +13,12 @@ class FeedbackBase(BaseModel):
 class FeedbackCreate(FeedbackBase):
     pass
 
+class FeedbackUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, description="Tiêu đề phản ánh")
+    content: Optional[str] = Field(None, min_length=20, description="Nội dung chi tiết, ít nhất 20 ký tự")
+    category_id: Optional[int] = None
+    is_anonymous: Optional[bool] = None
+
 class FeedbackResponse(FeedbackBase):
     id: int
     student_id: int
