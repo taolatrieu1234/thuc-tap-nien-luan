@@ -249,3 +249,32 @@ export const fetchMyFeedbacks = async (token) => {
     throw error;
   }
 };
+
+/**
+ * Hàm cập nhật phiếu phản ánh (21, 22)
+ */
+export const updateFeedback = async (feedback_id, update_data, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/feedbacks/${feedback_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(update_data)
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      if (errorData.detail && Array.isArray(errorData.detail)) {
+        throw new Error(errorData.detail[0].msg || "Dữ liệu không hợp lệ.");
+      }
+      throw new Error(errorData.detail || "Không thể cập nhật phản ánh.");
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi updateFeedback:", error);
+    throw error;
+  }
+};
