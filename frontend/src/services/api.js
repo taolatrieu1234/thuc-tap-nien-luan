@@ -237,12 +237,12 @@ export const fetchMyFeedbacks = async (token) => {
         "Authorization": `Bearer ${token}`
       }
     });
-    
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.detail || "Không thể tải lịch sử phản ánh.");
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error("Lỗi fetchMyFeedbacks:", error);
@@ -251,7 +251,7 @@ export const fetchMyFeedbacks = async (token) => {
 };
 
 /**
- * Hàm cập nhật phiếu phản ánh (21, 22)
+ * Hàm cập nhật, chỉnh sửa phiếu phản ánh (21,22)
  */
 export const updateFeedback = async (feedback_id, update_data, token) => {
   try {
@@ -263,7 +263,7 @@ export const updateFeedback = async (feedback_id, update_data, token) => {
       },
       body: JSON.stringify(update_data)
     });
-    
+
     if (!response.ok) {
       const errorData = await response.json();
       if (errorData.detail && Array.isArray(errorData.detail)) {
@@ -271,10 +271,38 @@ export const updateFeedback = async (feedback_id, update_data, token) => {
       }
       throw new Error(errorData.detail || "Không thể cập nhật phản ánh.");
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error("Lỗi updateFeedback:", error);
+    throw error;
+  }
+};
+
+
+
+
+/**
+ * Hàm xóa (rút) phiếu phản ánh (21,23)
+ */
+export const deleteFeedback = async (feedback_id, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/feedbacks/${feedback_id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Không thể xóa phản ánh.");
+    }
+
+    // API trả về 204 No Content nên không có body
+    return true;
+  } catch (error) {
+    console.error("Lỗi deleteFeedback:", error);
     throw error;
   }
 };

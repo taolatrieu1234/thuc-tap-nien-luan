@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchMyFeedbacks, fetchCategories, updateFeedback } from '../../services/api';
+import { fetchMyFeedbacks, fetchCategories, updateFeedback, deleteFeedback } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
-import { Lock, Eye, Edit2, X } from 'lucide-react';
+import { Lock, Eye, Edit2, Trash2, X } from 'lucide-react';
 import './TrackFeedback.css';
 
 const TrackFeedback = () => {
@@ -73,6 +73,20 @@ const TrackFeedback = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Bạn có chắc chắn muốn rút (xóa) phiếu phản ánh này? Hành động này không thể hoàn tác.")) {
+      try {
+        const token = localStorage.getItem("access_token");
+        await deleteFeedback(id, token);
+        // Remove locally
+        setFeedbacks(prev => prev.filter(f => f.id !== id));
+        alert("Đã xóa phiếu phản ánh thành công!");
+      } catch (err) {
+        alert("Lỗi khi xóa: " + err.message);
+      }
+    }
+  };
+
   const getStatusBadge = (status) => {
     switch (status) {
       case 'pending':
@@ -138,11 +152,16 @@ const TrackFeedback = () => {
                 
                 <div className="card-footer">
                   {fb.status === 'pending' && (
-                    <button className="btn-action btn-edit" onClick={() => handleEditClick(fb)}>
-                      <Edit2 size={16} style={{ marginRight: '5px' }}/> Chỉnh sửa
-                    </button>
+                    <>
+                      <button className="btn-action btn-edit" onClick={() => handleEditClick(fb)}>
+                        <Edit2 size={16} style={{ marginRight: '5px' }}/> Chỉnh sửa
+                      </button>
+                      <button className="btn-action btn-delete" onClick={() => handleDelete(fb.id)}>
+                        <Trash2 size={16} style={{ marginRight: '5px' }}/> Rút phiếu
+                      </button>
+                    </>
                   )}
-                  <button className="btn-detail" onClick={() => alert("Chức năng Xem chi tiết & Hủy phiếu đang phát triển ở Tuần 5!")}>
+                  <button className="btn-detail" onClick={() => alert("Chức năng Xem chi tiết bình luận của Cán bộ đang phát triển ở Tuần 6!")}>
                     Xem chi tiết
                   </button>
                 </div>
