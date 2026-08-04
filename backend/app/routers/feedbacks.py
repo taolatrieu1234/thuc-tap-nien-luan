@@ -115,3 +115,29 @@ def delete_feedback(feedback_id: int, current_user: dict = Depends(require_role(
         raise http_exc
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+#(24)
+@router.get("/{feedback_id}", response_model=dict)
+def get_feedback_detail(feedback_id: int, current_user: dict = Depends(require_role(["student"]))):
+    """Sinh viên xem chi tiết phản ánh và phản hồi của cán bộ"""
+    try:
+        # Lấy thông tin phiếu kèm theo danh mục và bảng responses
+        response = supabase.table("feedbacks")\
+            .select("*, categories(name), responses(*)")\
+            .eq("id", feedback_id)\
+            .execute()
+            
+        if not response.data or len(response.data) == 0:
+            raise HTTPException(status_code=404, detail="Phiếu phản ánh không tồn tại.")
+            
+        fb = response.data[0]
+        
+        # Kiểm tra quyền sở hữu
+        if fb["student_id"] != current_user["id"]:
+            raise HTTPException(status_code=403, detail="Bạn không có quyền xem phiếu này.")
+            
+        return fb
+    except HTTPException as http_exc:
+        raise http_exc
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
