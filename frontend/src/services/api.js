@@ -306,3 +306,27 @@ export const deleteFeedback = async (feedback_id, token) => {
     throw error;
   }
 };
+
+/**
+ * Hàm xem chi tiết phản ánh của sinh viên (24, 25)
+ */
+export const getFeedbackDetail = async (feedback_id, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/feedbacks/${feedback_id}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Không thể tải chi tiết phản ánh.");
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi getFeedbackDetail:", error);
+    throw error;
+  }
+};

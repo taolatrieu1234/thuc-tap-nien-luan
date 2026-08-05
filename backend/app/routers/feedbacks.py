@@ -116,14 +116,16 @@ def delete_feedback(feedback_id: int, current_user: dict = Depends(require_role(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-#(24)
+
+
+#(24,25)
 @router.get("/{feedback_id}", response_model=dict)
 def get_feedback_detail(feedback_id: int, current_user: dict = Depends(require_role(["student"]))):
     """Sinh viên xem chi tiết phản ánh và phản hồi của cán bộ"""
     try:
-        # Lấy thông tin phiếu kèm theo danh mục và bảng responses
+        # Lấy thông tin phiếu kèm theo danh mục và bảng responses (kèm tên cán bộ)
         response = supabase.table("feedbacks")\
-            .select("*, categories(name), responses(*)")\
+            .select("*, categories(name), responses(*, users(full_name))")\
             .eq("id", feedback_id)\
             .execute()
             
