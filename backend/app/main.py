@@ -1,6 +1,6 @@
 from fastapi import FastAPI 
 from fastapi.middleware.cors import CORSMiddleware #(5)
-from app.routers import auth, categories, feedbacks #(7, 13, 16)
+from app.routers import auth, categories, feedbacks, staff #(7, 13, 16, 26)
 from app.database import supabase
 
 app = FastAPI(title="Hệ thống Phản ánh và Góp ý ẩn danh cho Sinh viên")
@@ -22,6 +22,8 @@ app.include_router(auth.router, prefix="/api/auth", tags=["Xác thực tài kho�
 app.include_router(categories.router, prefix="/api/categories", tags=["Danh mục phản ánh (Categories)"])
 # Gắn nhánh API Feedbacks (16)
 app.include_router(feedbacks.router, prefix="/api/feedbacks", tags=["Quản lý phản ánh (Feedbacks)"])
+# Gắn nhánh API Staff (26)
+app.include_router(staff.router, prefix="/api/staff", tags=["Cán bộ xử lý (Staff)"])
 
 
 
