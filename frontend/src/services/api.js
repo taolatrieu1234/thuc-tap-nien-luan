@@ -330,3 +330,39 @@ export const getFeedbackDetail = async (feedback_id, token) => {
     throw error;
   }
 };
+
+/**
+ * Hàm lấy danh sách phản ánh dành cho Cán bộ (26, 27)
+ */
+export const getStaffFeedbacks = async (status, search, token) => {
+  try {
+    let url = `${BASE_URL}/api/staff/feedbacks`;
+    const params = new URLSearchParams();
+    
+    if (status && status !== 'all') {
+      params.append('status', status);
+    }
+    if (search) {
+      params.append('search', search);
+    }
+    
+    if (params.toString()) {
+      url += `?${params.toString()}`;
+    }
+    
+    const response = await fetch(url, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Lỗi tải danh sách phản ánh.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi getStaffFeedbacks:", error);
+    throw error;
+  }
+};
